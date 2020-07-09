@@ -7,10 +7,31 @@
         <mat-option value="option">Option</mat-option>
       </mat-select>
     </mat-form-field>
+    
     <br>
  
     <mat-form-field appearance="fill" style="width:400px">
       <mat-label>Enter Message Here</mat-label>
-      <textarea matInput style=" height: 200px"></textarea>
-    </mat-form-field>
+      <textarea matInput style=" height: 200px"
+      [(ngModel)]="messages_recorded">
+      </textarea>
+    </mat-form-field>    
+
+    <div>{{messages_recorded}}</div>
+
+    <br>
+    <button mat-raised-button 
+    id = "submit"
+    style="background-color:#1e546d; color:#ffffff"
+    (click)="
+      msgService.postMessage(messages_recorded); 
+      messages_recorded=null">
+    Submit
+    </button>
+
+    <div *ngIf="msgService.showSuccessMessage">
+      <h3>Message Received</h3>
+    </div>
   </div>
+
+

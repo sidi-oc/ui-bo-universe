@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Universe Generic Business Object UI';
+  title = 'Universe Business Object UI';
 }
