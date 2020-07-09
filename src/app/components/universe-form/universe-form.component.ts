@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'universe-form',
   templateUrl: './universe-form.component.html',
-  styleUrls: ['./universe-form.component.css']
+  styleUrls: ['../../app.component.css']
 })
 export class UniverseFormComponent implements OnInit {
 
@@ -12,4 +12,5 @@ export class UniverseFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  entities: string[] = ['Oceans', 'Continents', 'Planets', 'Solar Systems', 'Galaxies', 'Other'];
 }

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'list-entities',
   templateUrl: './list-entities.component.html',
-  styleUrls: ['./list-entities.component.css']
+  styleUrls: ['../../app.component.css']
 })
 export class ListEntitiesComponent implements OnInit {
 

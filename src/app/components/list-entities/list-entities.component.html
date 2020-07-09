@@ -1,11 +1,9 @@
-<!-- <h2 style="font-weight: 200;">List Entities Works</h2> -->
-
-<h2>List Entities Works</h2>
+<h2>List of Entities in Universe BO</h2>
 
 
 <mat-selection-list #es [multiple]="false">
   <mat-list-option *ngFor="let e of entities" [value]="e">
-    <h3>{{e}}</h3>
+    <h2 style = "font:20px">{{e}} </h2>
   </mat-list-option>
 </mat-selection-list>
 <br>
