@@ -1,15 +1,19 @@
-<h2>List of Entities in Universe BO</h2>
+<div style="margin-left:100px; margin-top: 20px">
 
 
-<mat-selection-list #es [multiple]="false">
+
+<mat-selection-list #es [multiple]="false" >
+  <mat-label><h4>Select an entity to view its dtails</h4></mat-label>
   <mat-list-option *ngFor="let e of entities" [value]="e">
-    <h2 style = "font:20px">{{e}} </h2>
+    <span><h4>{{e}} </h4></span>
   </mat-list-option>
 </mat-selection-list>
 <br>
-<h2 style="font-weight: 200;">
-  Option selected: {{es.selectedOptions.selected[0]?.value}}
-</h2>
+<h3 style="font-weight: 200px">
+  Showing All Existing {{es.selectedOptions.selected[0]?.value}}
+</h3>
 
+</div>
 
+<!-- use cards for showing details? -->
 

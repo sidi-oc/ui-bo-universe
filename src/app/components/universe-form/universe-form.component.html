@@ -1,10 +1,17 @@
-<h2 style="margin-left: 25px">Thoughts about the universe here</h2>
+<div style="margin-left:100px">
 
-<div style="margin-left: 40px">
+<h2>Please submit your messages here</h2>
+
+<div style="margin-left: 14px">
     <mat-form-field appearance="fill" style="width:400px">
       <mat-label>Select Entity</mat-label>
       <mat-select>
-        <mat-option value="option">Option</mat-option>
+        <mat-option value="option"></mat-option>
+        <mat-option value="option">Continent</mat-option>
+        <mat-option value="option">Ocean</mat-option>
+        <mat-option value="option">Planet</mat-option>
+        <mat-option value="option">Solar System</mat-option>
+        <mat-option value="option">Galaxy</mat-option>
       </mat-select>
     </mat-form-field>
     
@@ -17,8 +24,6 @@
       </textarea>
     </mat-form-field>    
 
-    <div>{{messages_recorded}}</div>
-
     <br>
     <button mat-raised-button 
     id = "submit"
@@ -30,8 +35,8 @@
     </button>
 
     <div *ngIf="msgService.showSuccessMessage">
-      <h3>Message Received</h3>
+      <h4>Message Received: {{msgService.id}}</h4>
     </div>
   </div>
-
+ </div>
 

@@ -13,6 +13,6 @@ export class ListEntitiesComponent implements OnInit {
   }
 
   entities: string[] = ['Oceans', 'Continents', 'Planets', 'Solar Systems', 'Galaxies'];
-
+  selected_entity: string
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UniverseBO } from 'src/app/bo-interface';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class MessagesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getMessage(id: number) {
+  getMessage(id: string) {
     const message_get_url = `http://localhost/api/messages/${id}`;
     return this.httpClient.get(message_get_url);
   }
@@ -20,7 +21,7 @@ export class MessagesService {
   postMessage(message: string) {
     const message_url = `http://localhost/api/messages`;
     
-    return this.httpClient.post<any>(message_url, {messages: message}).subscribe(data => {
+    return this.httpClient.post<UniverseBO>(message_url, {messages: message}).subscribe(data => {
       this.id = data.id;
       this.showSuccessMessage = true;
     })
