@@ -17,12 +17,13 @@ export class ActionHandlerComponent implements OnInit {
   continentId: string;
   continentName: string;
   planetId: string;
-
-  continentSelected: boolean = false;
-  oceanSelected: boolean = false;
-  planetSelected: boolean = false;
-  solarSystemSelected: boolean = false;
-  galaxySelected: boolean = false;
+  
+  entitySelected: string;
+  continentSelected: boolean;
+  oceanSelected: boolean;
+  planetSelected: boolean;
+  solarSystemSelected: boolean;
+  galaxySelected: boolean;
 
   actionSelected: string;
   get: boolean = false;
@@ -43,31 +44,86 @@ export class ActionHandlerComponent implements OnInit {
     this.galaxySelected = false;
   }
 
-  selectContinent(){
-    this.continentSelected = true;
-  }
-
   unselectAllFields(){
     this.showIdField = false;
     this.showNameField = false;
     this.showPlanetField = false;
   }
 
-  displayIdField (){
-    this.showIdField = true;
-  }
+  selectEntity(entity: string){
+    this.clearAll();
+    switch(entity){
+      case "continent": { 
+        this.continentSelected = true;
+        break;
+      }
+      case "ocean": { 
+        this.oceanSelected = true;
+        break;
+      }
+      case "planet": { 
+        this.planetSelected = true;
+        break;
+      }
+      case "solarSystem": { 
+        this.solarSystemSelected = true;
+        break;
+      }
+      case "galaxy": { 
+        this.galaxySelected = true;
+        break;
+      }
+      case "option": { 
+        break;
+      }
+      default: {
+        console.error(`invalid entity selected`);
+        break;
+      }
+    }
 
-  displayNameField (){
-    this.showNameField = true;
-  }
-
-  displayPlanetField (){
-    this.showPlanetField = true;
+    return this.entitySelected;
   }
 
   selectAction(action: string){
-    this.actionSelected = action;
-    return this.actionSelected
+    this.clearAction();
+    this.unselectAllFields();
+    this.continentService.hideAllMessages();
+
+    switch(action){
+      case "get": { 
+        this.get = true;
+        this.showIdField = true;
+        break;
+      }
+      case "post": { 
+        this.post = true;
+        this.showPlanetField = true;
+        this.showNameField = true;
+        break;
+      }
+      case "del": { 
+        this.del = true;
+        this.showIdField = true;
+        break;
+      }
+      case "put": { 
+        this.put = true;
+        this.showPlanetField = true;
+        this.showNameField = true;
+        this.showIdField = true;
+        break;
+      }
+
+      case "option": {
+        break;
+      }
+     
+      default: {
+        console.error(`invalid action selected`);
+        break;
+      }
+    }
   }
 
   clearData(){
@@ -88,14 +144,9 @@ export class ActionHandlerComponent implements OnInit {
     this.unselectAllFields();
     this.clearData();
     this.clearAction;
+    this.continentService.hideAllMessages();
   }
 
-  actionGet(){this.get = true;}
 
-  actionPut(){this.put = true;}
-
-  actionDel(){this.del = true;}
-
-  actionPost(){this.post = true;}
 
 }

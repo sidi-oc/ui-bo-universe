@@ -20,16 +20,22 @@ export class ContinentsService {
   getContinent(id: string) {
     let get_url = `${this.continent_url}/${id}`;
     console.log(get_url);
-    return this.httpClient.get<UniverseBO>(get_url).subscribe(data => {
+    const continent$ = this.httpClient.get<UniverseBO>(get_url);
+    continent$.subscribe(data => {
       this.post_id = data.id;
       this.continent_name = data.name;
       this.continent_planet = data.planet;
       this.showGetMessage = true;
     });
+    return continent$;
   }
 
   getAllContinents(){
-    return this.httpClient.get(this.continent_url);
+    const allContinents$ = this.httpClient.get<UniverseBO[]>(this.continent_url);
+    allContinents$.subscribe(
+      error => console.error(error)
+    );
+    return allContinents$;
   }
 
   postContinent(continentName: string, planetID?: string) {    

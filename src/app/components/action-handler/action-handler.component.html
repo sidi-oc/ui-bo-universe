@@ -1,43 +1,27 @@
 <div style="margin-left:100px">
 
-<h2 >Action Handler Works</h2>
+    <h2 >Interact With Entities</h2>
 
-<div style="margin-left:14px">
+    <div style="margin-left:14px">
+        <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Select Entity</mat-label>
+            <mat-select [(value)]=entitySelected
+            (selectionChange) = "
+                selectEntity(entitySelected);
+            ">
+                <mat-option value="option"></mat-option>
+                <mat-option value="continent">Continent</mat-option>
+                <mat-option value="ocean">Ocean</mat-option>
+                <mat-option value="planet">Planet</mat-option>
+                <mat-option value="solarSystem">Solar System</mat-option>
+                <mat-option value="galaxy">Galaxy</mat-option>
+            </mat-select>
+        </mat-form-field>
+        </div>
+    <br>
+
     <div>
-    <mat-form-field appearance="fill">
-        <mat-label>Select Entity</mat-label>
-        <mat-select>
-            <mat-option value="option"
-            (onSelectionChange)="
-                clearAll();
-            "></mat-option>
-            <mat-option value="option" 
-            (onSelectionChange)="
-                clearAll();
-                selectContinent();
-            ">Continent</mat-option>
-            <mat-option value="option"
-            (onSelectionChange)="
-                clearAll();
-            ">Ocean</mat-option>
-            <mat-option value="option"
-            (onSelectionChange)="
-                clearAll();
-            ">Planet</mat-option>
-            <mat-option value="option"
-            (onSelectionChange)="
-                clearAll();
-            ">Solar System</mat-option>
-            <mat-option value="option"
-            (onSelectionChange)="
-                clearAll();
-            ">Galaxy</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-
-        <br>
         <div *ngIf="continentSelected; then continentTemplate"></div>
         <br>
         <div *ngIf="showIdField; then idTemplate"></div>
@@ -47,149 +31,126 @@
         <div *ngIf="showPlanetField; then planetIdTemplate"></div>
         <br>
         <div *ngIf="continentSelected; then generalButtonTemplate"></div>
-
-        <br>
-        
-        
-        <!-- entities templates  -->
-
-        <ng-template #continentTemplate>
-            <mat-form-field appearance="fill">
-            <mat-label>Select Action</mat-label>
-            <mat-select [(value)]="actionSelected">
-                <mat-option value="get"
-                (onSelectionChange)= "
-                    unselectAllFields();
-                    clearAction();
-                    displayIdField();
-                    actionGet();
-                ">Get Existing Continents</mat-option>
+        </div>    
+    </div>    
     
-                <mat-option value="post"
-                (onSelectionChange)= "
-                    unselectAllFields();
-                    clearAction();
-                    displayNameField();
-                    displayPlanetField();
-                    actionPost();
-                ">Create a New Continent</mat-option>
+    <ng-template #continentTemplate>
+        <mat-form-field appearance="fill">
+        <mat-label>Select Action</mat-label>
+        <mat-select [(value)]="actionSelected" 
+        (selectionChange) = "
+            selectAction(actionSelected);
+        ">
+            <mat-option value="option"></mat-option>
+
+            <mat-option value="get">Get Existing Continents</mat-option>
+
+            <mat-option value="post">Create a New Continent</mat-option>
+
+            <mat-option value="del">Delete an Existing Continent</mat-option>
+
+            <mat-option value="put">Modify an Existing Continent</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-template>
+
+    <!-- entities templates  -->
+
+
     
-                <mat-option value="del"
-                (onSelectionChange)= "
-                    unselectAllFields();
-                    clearAction();
-                    displayIdField();
-                    actionDel();
-                ">Delete an Existing Continent</mat-option>
-    
-                <mat-option value="put"
-                (onSelectionChange)= "
-                    unselectAllFields();
-                    clearAction();
-                    displayIdField();
-                    displayNameField();
-                    displayPlanetField();
-                    actionPut();
-                ">Modify an Existing Continent</mat-option>
-    
-                </mat-select>
-            </mat-form-field>
-        </ng-template>
+        
+    <!-- forms templates  -->
+
+    <ng-template #idTemplate>
+        <mat-form-field appearance="fill">
+        <mat-label>Entity ID</mat-label>
+        <textarea matInput [(ngModel)]="continentId"></textarea>
+        </mat-form-field>
+    </ng-template>
+
+    <ng-template #nameTemplate>
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <textarea matInput [(ngModel)]="continentName"></textarea>
+        </mat-form-field>
+    </ng-template>
+
+    <ng-template #planetIdTemplate>
+        <mat-form-field appearance="fill">
+            <mat-label>Associated Planet ID</mat-label>
+            <textarea matInput [(ngModel)]="planetId"></textarea>
+        </mat-form-field>
+    </ng-template>
+
+
+    <!-- button templates -->
+    <ng-template #generalButtonTemplate>
+        <div *ngIf="this.get; then getButtonTemplate"></div>
+        <div *ngIf="this.post; then postButtonTemplate"></div>
+        <div *ngIf="this.del; then deleteButtonTemplate"></div>
+        <div *ngIf="this.put; then putButtonTemplate"></div>
+    </ng-template>
+
+    <ng-template #postButtonTemplate>
+        <button mat-raised-button 
+            style="background-color:#1e546d; color:#ffffff"
+            (click)="
+            continentService.postContinent(continentName, planetId);
+            clearData();">
+            Create
+        </button>
+
+        <div *ngIf="continentService.showSuccessMessage">
+            <h4>Continent ID {{continentService.post_id}} Successfully Created</h4>
+        </div>
+    </ng-template>
+
+    <ng-template #getButtonTemplate>
+        <button mat-raised-button 
+            style="background-color:#1e546d; color:#ffffff"
+            (click)="
+            continentService.getContinent(continentId);
+            clearData();">
+            Get
+        </button>
+        <div *ngIf="continentService.showGetMessage" style="margin-top:20px">
+            <h4> Continent ID: {{continentService.post_id}}</h4>
+            <h4> Continent Name: {{continentService.continent_name}}</h4>
+            <h4> Associated Planet ID: {{continentService.continent_planet}}</h4>
+        </div>
+    </ng-template>        
+
+
+    <ng-template #deleteButtonTemplate>
+        <button mat-raised-button 
+            style="background-color:#1e546d; color:#ffffff"
+            (click)="
+            continentService.deleteContinent(continentId);
+            clearData();">
+            Delete
+        </button>
+        <div *ngIf="continentService.showDeleteMessage" style="margin-top:20px">
+            <h4> Continent Successfully Deleted </h4>
+        </div>
+    </ng-template>
+
+
+    <ng-template #putButtonTemplate>
+        <button mat-raised-button 
+            style="background-color:#1e546d; color:#ffffff"
+            (click)="
+            continentService.putContinent(continentId, continentName, planetId);
+            clearData();">
+            Create
+        </button>
+
+        <div *ngIf="continentService.showGetMessage" style="margin-top:20px">
+            <h4> Continent ID: {{continentService.post_id}}</h4>
+            <h4> Continent Name: {{continentService.continent_name}}</h4>
+            <h4> Associated Planet ID: {{continentService.continent_planet}}</h4>
+        </div>
+    </ng-template>
+
 
         
-        
-        
-        <!-- forms templates  -->
-
-        <ng-template #idTemplate>
-            <mat-form-field appearance="fill">
-            <mat-label>Entity ID</mat-label>
-            <textarea matInput [(ngModel)]="continentId"></textarea>
-            </mat-form-field>
-        </ng-template>
-
-        <ng-template #nameTemplate>
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <textarea matInput [(ngModel)]="continentName"></textarea>
-            </mat-form-field>
-        </ng-template>
-       
-        <ng-template #planetIdTemplate>
-            <mat-form-field appearance="fill">
-                <mat-label>Associated Planet ID</mat-label>
-                <textarea matInput [(ngModel)]="planetId"></textarea>
-            </mat-form-field>
-        </ng-template>
-
-
-
-        <!-- button templates -->
-        <ng-template #generalButtonTemplate>
-            <div *ngIf="this.get; then getButtonTemplate"></div>
-            <div *ngIf="this.post; then postButtonTemplate"></div>
-            <div *ngIf="this.del; then deleteButtonTemplate"></div>
-            <div *ngIf="this.put; then putButtonTemplate"></div>
-        </ng-template>
-
-        <ng-template #postButtonTemplate>
-            <button mat-raised-button 
-                style="background-color:#1e546d; color:#ffffff"
-                (click)="
-                continentService.postContinent(continentName, planetId);
-                clearData();">
-                Create
-            </button>
-
-            <div *ngIf="continentService.showSuccessMessage">
-                <h4>Message Received: {{continentService.post_id}}</h4>
-            </div>
-         </ng-template>
-
-         <ng-template #getButtonTemplate>
-            <button mat-raised-button 
-                style="background-color:#1e546d; color:#ffffff"
-                (click)="
-                continentService.getContinent(continentId);
-                clearData();">
-                Get
-            </button>
-            <div *ngIf="continentService.showGetMessage" style="margin-top:20px">
-                <h4> Continent ID: {{continentService.post_id}}</h4>
-                <h4> Continent Name: {{continentService.continent_name}}</h4>
-                <h4> Associated Planet ID: {{continentService.continent_planet}}</h4>
-            </div>
-         </ng-template>        
-
-
-         <ng-template #deleteButtonTemplate>
-            <button mat-raised-button 
-                style="background-color:#1e546d; color:#ffffff"
-                (click)="
-                continentService.deleteContinent(continentId);
-                clearData();">
-                Delete
-            </button>
-            <div *ngIf="continentService.showDeleteMessage" style="margin-top:20px">
-                <h4> Continent Successfully Deleted </h4>
-            </div>
-         </ng-template>
-         
-         
-         <ng-template #putButtonTemplate>
-            <button mat-raised-button 
-                style="background-color:#1e546d; color:#ffffff"
-                (click)="
-                continentService.putContinent(continentId, continentName, planetId);
-                clearData();">
-                Create
-            </button>
-
-            <div *ngIf="continentService.showGetMessage" style="margin-top:20px">
-                <h4> Continent ID: {{continentService.post_id}}</h4>
-                <h4> Continent Name: {{continentService.continent_name}}</h4>
-                <h4> Associated Planet ID: {{continentService.continent_planet}}</h4>
-            </div>
-         </ng-template>
-  </div>
 </div>

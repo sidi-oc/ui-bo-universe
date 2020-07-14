@@ -12,7 +12,7 @@ export class ListEntitiesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  entities: string[] = ['Oceans', 'Continents', 'Planets', 'Solar Systems', 'Galaxies'];
+  entities: string[] = ['Continents', 'Oceans', 'Planets', 'Solar Systems', 'Galaxies'];
   selected_entity: string
 
 }
