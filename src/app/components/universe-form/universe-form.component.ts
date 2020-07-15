@@ -12,6 +12,7 @@ import { MessagesService } from 'src/app/services/messages/messages.service';
 export class UniverseFormComponent implements OnInit {
 
   messages_recorded: string;
+  entitySelected: string;
 
   constructor(private httpClient: HttpClient, public msgService: MessagesService) { }
 

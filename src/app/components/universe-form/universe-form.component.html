@@ -5,13 +5,13 @@
 <div style="margin-left: 14px">
     <mat-form-field appearance="fill" style="width:400px">
       <mat-label>Select Entity</mat-label>
-      <mat-select>
-        <mat-option value="option"></mat-option>
-        <mat-option value="option">Continent</mat-option>
-        <mat-option value="option">Ocean</mat-option>
-        <mat-option value="option">Planet</mat-option>
-        <mat-option value="option">Solar System</mat-option>
-        <mat-option value="option">Galaxy</mat-option>
+      <mat-select [(value)]="entitySelected">
+        <mat-option value="Option"></mat-option>
+        <mat-option value="Continent">Continent</mat-option>
+        <mat-option value="Ocean">Ocean</mat-option>
+        <mat-option value="Planet">Planet</mat-option>
+        <mat-option value="SolarSystem">Solar System</mat-option>
+        <mat-option value="Galaxy">Galaxy</mat-option>
       </mat-select>
     </mat-form-field>
     
@@ -29,7 +29,7 @@
     id = "submit"
     style="background-color:#1e546d; color:#ffffff"
     (click)="
-      msgService.postMessage(messages_recorded); 
+      msgService.postMessage(messages_recorded, entitySelected); 
       messages_recorded=null">
     Submit
     </button>

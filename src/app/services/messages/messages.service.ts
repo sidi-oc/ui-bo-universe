@@ -18,12 +18,19 @@ export class MessagesService {
     return this.httpClient.get(message_get_url);
   }
 
-  postMessage(message: string) {
+  postMessage(message: string, e?: string) {
     const message_url = `http://localhost/api/messages`;
-    
-    return this.httpClient.post<UniverseBO>(message_url, {messages: message}).subscribe(data => {
+    if (e == "Option"){
+      return this.httpClient.post<UniverseBO>(message_url, {messages: message}).subscribe(data => {
       this.id = data.id;
       this.showSuccessMessage = true;
-    })
+    })}
+    else{
+      return this.httpClient.post<UniverseBO>(message_url, {messages: message, entity: e}).subscribe(data => {
+        this.id = data.id;
+        this.showSuccessMessage = true;
+      })
+    }
+    
   }
 }
