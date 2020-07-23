@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { TestingLibComponent } from './components/testing-lib/testing-lib.component';
 
 
 
@@ -25,7 +26,8 @@ import { MatMenuModule } from '@angular/material/menu';
     AppComponent,
     ListEntitiesComponent,
     ActionHandlerComponent,
-    UniverseFormComponent
+    UniverseFormComponent,
+    TestingLibComponent
   ],
   imports: [
     BrowserModule,
